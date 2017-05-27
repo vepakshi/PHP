@@ -1,0 +1,91 @@
+<html>
+<head>
+<style>.highlighted_date{font-weight:bold;background:#95bee7  ;}</style></head>
+<body>
+Start Date: <input type="text" id="my_start_date">
+<br><br>
+End Date: <input type="text" id="my_end_date">
+<script type="text/javascript" src="PATH/TO/ng_all.js"></script>
+<script type="text/javascript" src="PATH/TO/components/calendar.js"></script>
+<script type="text/javascript">
+ng.ready( function() {
+    /* we start by creating the end calendar
+     * because the start calendar will need 
+     * to reference it. You can set
+     * any options you would like   */
+    
+    var end_cal = new ng.Calendar({
+        input: 'my_end_date'
+    });
+    
+    /* now creating the start calendar
+     * we will pass the end calendar
+     * as an option */
+    var start_cal = new ng.Calendar({
+        input: 'my_start_date',
+    
+        // custom propert, you can access it later by this.p.my_end_cal
+        my_end_cal: end_cal,
+    
+        // events
+        events: {
+            onSelect: function(dt){
+                // first we clone the date, this will be the start
+                // date for the end calendar
+                var st_dt = dt.clone();
+    
+                // creating the date_on_avaliable object
+                var dt_on_aval = {};
+                // we are using "en" in the print function because the page
+                // contain other languages and the language object
+                // remembers the last language used.
+                dt_on_aval[st_dt.print('n_j_Y', 'en')] = function(id){
+                    ng.get(id).add_class('highlighted_date');
+                };
+    
+                // set the end calendar date on available option
+                this.p.my_end_cal.set_date_on_available(dt_on_aval);
+    
+                // how many days after the start date can the user
+                // select an end date, we'll keep it 0 for now
+                var num_days = 0;
+    
+                // setting the new start date for the end calendar
+                st_dt = st_dt.from_string('today+'+num_days);
+                
+                // we check if the end date is selected
+                // and if is smaller than the new start date
+                var end_dt = this.p.my_end_cal.get_selected_date();
+    
+                if ((ng.defined(end_dt)) &&
+                    (end_dt.getTime() < st_dt.getTime())){
+                    // unselect the end date
+                    this.p.my_end_cal.clear_selection();
+                }
+    
+                // setting the start date for the end calendar
+                this.p.my_end_cal.set_start_date(st_dt);
+    
+                // finally we open the end calendar
+                this.p.my_end_cal.open();
+            },
+    
+            // reset the start date to original
+            // when the user unselect a date
+            onUnSelect: function(dt){
+                // clear end calendar date on available
+                // option by setting it to empty object
+                this.p.my_end_cal.set_date_on_available({});
+    
+                // first we clone the start date
+                var st_dt = this.get_start_date().clone();
+    
+                // now we set the end calendar start date
+                this.p.my_end_cal.set_start_date(st_dt);
+            }
+        }
+    });
+});
+</script></body>
+</html>
+http://www.nogray.com/example.php?ID=286

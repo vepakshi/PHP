@@ -1,0 +1,25 @@
+<div id="nav">
+	<ul>
+        <li><a href="#"  style="text-decoration:none";>Home</a></li>
+    	<li><a href="#" style="text-decoration:none";>About Us</a>
+        	<ul>
+            	<li><a href="#" style="text-decoration:none";>Accrediation</li>
+                 <li><a href="#" style="text-decoration:none";><Programmes</li>
+                 </ul></li>
+
+            	
+<li><a href="#" style="text-decoration:none";>Admissions </a>
+                	<ul>
+                    	<li><a href="#" style="text-decoration:none";>Admissions Home</font></a></li>
+                    	<li><a href="#" style="text-decoration:none";>Admissions Info</a></li></ul></li>
+
+ <li><a href="#"  style="text-decoration:none";>Admin Login</a></li>
+ <li><a href="#" style="text-decoration:none";>Candidate Login</a>
+                	<ul>
+                    	<li><a href="#" style="text-decoration:none";>Sign In</font></a></li>
+                    	<li><a href="#" style="text-decoration:none";>Sign Up</font></a></li></ul></li>
+<li><a href="#"  style="text-decoration:none";>Feedback</a></li>
+                    	
+    </ul>
+
+</div>
